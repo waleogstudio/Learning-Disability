@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Process Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .close-btn {
+            float: right;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .spinner-border {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-left: 10px;
+        }
+        .heartbeat {
+            font-size: 1.25rem;
+            animation: heartbeat 2s infinite;
+            display: inline-block;
+            transform-origin: center;
+        }
+
+        /* Heartbeat keyframes */
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            14% {
+                transform: scale(1.1);
+            }
+            28% {
+                transform: scale(0.95);
+            }
+            42% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(1);
+            }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.03); }
+            28% { transform: scale(0.97); }
+            42% { transform: scale(1.02); }
+            70% { transform: scale(1); }
+        }
+
+
+    </style>
+</head>
+<body class="container mt-5">
+
+    <!-- Navbar -->
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded mb-4 px-3">
+            <a class="navbar-brand heartbeat" href="#">🧠 LD with Multi-Modal Fusion Framework</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{{ url_for('process_page') }}">Preprocessing Step</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('model') }}">Model Inference</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{{ url_for('final_model') }}">Evaluation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{{ url_for('metrics_page') }}">Metrices</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+<div class="alert alert-info">
+    <h4>Preprocessing Stage</h4>
+</div>
+
+<!-- Eye Preprocessing Section -->
+<div class="card p-3 mb-4">
+    <h5>1️⃣ Eye Tracking Datasets</h5>
+    <form method="post" action="{{ url_for('process_page') }}" onsubmit="return showLoader('eye')" class="d-flex gap-3 align-items-center">
+        <button id="eye-btn" type="submit" name="eye" class="btn btn-primary">Run Eye Preprocess</button>
+        <div id="eye-spinner" class="spinner-border text-success d-none" role="status"></div>
+    </form>
+
+    {% if data_eye %}
+        <script>document.getElementById('eye-btn').classList.replace('btn-primary', 'btn-success');</script>
+        <div id="eye-result" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <span class="close-btn" onclick="hideResult('eye-result'); hideResult('eye-samples')">&times;</span>
+            <strong>Eye Result:</strong> {{ data_eye }}
+        </div>
+    {% endif %}
+</div>
+
+<!-- Handwriting Preprocessing Section -->
+<div class="card p-3 mb-4">
+    <h5>2️⃣ Handwritting Datasets</h5>
+    <form method="post" action="{{ url_for('process_page') }}" onsubmit="return showLoader('handwrite')" class="d-flex gap-3 align-items-center">
+        <button id="handwrite-btn" type="submit" name="handwrite" class="btn btn-primary">Run Handwriting Preprocess</button>
+        <div id="handwrite-spinner" class="spinner-border text-success d-none" role="status"></div>
+    </form>
+
+    {% if data_hw %}
+        <script>document.getElementById('handwrite-btn').classList.replace('btn-primary', 'btn-success');</script>
+        <div id="hw-result" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <span class="close-btn" onclick="hideResult('hw-result')">&times;</span>
+            <strong>Handwriting Result:</strong> {{ data_hw }}
+        </div>
+    {% endif %}
+</div>
+
+<!-- EEG Preprocessing Section -->
+<div class="card p-3 mb-4">
+    <h5>3️⃣ EEG Signal Datasets</h5>
+    <form method="post" action="{{ url_for('process_page') }}" onsubmit="return showLoader('eeg')" class="d-flex gap-3 align-items-center flex-wrap">
+        <button id="eeg-btn" type="submit" name="eeg" class="btn btn-primary">Run EEG Preprocess</button>
+        <div id="eeg-spinner" class="spinner-border text-success d-none" role="status"></div>
+    </form>
+
+    {% if data_eeg %}
+        <script>document.getElementById('eeg-btn').classList.replace('btn-primary', 'btn-success');</script>
+        <div id="eeg-result" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <span class="close-btn" onclick="hideResult('eeg-result')">&times;</span>
+            <strong>EEG Result:</strong> {{ data_eeg }}
+        </div>
+
+    <form method="get" action="{{ url_for('eeg_plot_route') }}" class="mt-3">
+        <button type="submit" class="btn btn-outline-dark">📊 View EEG Plots</button>
+    </form>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">⬅️ Back to Home</a>
+<a href="{{ url_for('model') }}" class="btn btn-secondary mt-3 float-end">Model Inference Page ➡️</a>
+<br><br><br>
+<script>
+    function hideResult(id) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
+
+    function showLoader(type) {
+        const btn = document.getElementById(`${type}-btn`);
+        const spinner = document.getElementById(`${type}-spinner`);
+        btn.classList.replace('btn-primary', 'btn-success');
+        spinner.classList.remove('d-none');
+        return true; // allow form to submit
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

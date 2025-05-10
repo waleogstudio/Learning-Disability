@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Disability</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add box shadow to the navbar */
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Apply subtle shadow */
+        }
+
+        /* Apply a vintage, darkened effect to the images in the carousel */
+        .carousel-item img {
+            filter: grayscale(50%) brightness(60%) contrast(80%) sepia(20%);
+            transition: filter 0.3s ease;
+            border-radius: 2%; /* Added border radius */
+        }
+
+        /* Optional: remove vintage effect on hover to make images clearer */
+        .carousel-item:hover img {
+            filter: grayscale(0%) brightness(100%) contrast(100%) sepia(0%);
+        }
+
+        /* Navbar link hover popup effect */
+        .nav-link {
+            position: relative; /* Positioning the text for the popup */
+            transition: transform 0.3s ease-in-out; /* Animation effect */
+        }
+
+        .nav-link:hover {
+            transform: translateY(-3px); /* Moves the link up when hovered */
+            color: #ffd700; /* Change the text color on hover */
+        }
+
+        /* Popup text effect (tooltip-like) */
+        .nav-link:hover::after {
+            content: attr(aria-current); /* Display the aria-current text (if present) */
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 10px;
+            background-color: #333; /* Background color for the tooltip */
+            color: #fff; /* Text color for the tooltip */
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0.8;
+            visibility: visible;
+            z-index: 1; /* Ensure the tooltip stays on top */
+        }
+
+        /* Optional: Add a subtle popup effect for the hover (tool-tip like) */
+        .nav-link:hover::after {
+            transform: translateX(-50%) translateY(5px); /* Make it pop a little when hovered */
+            opacity: 1;
+        }
+
+        /* Title Section Styling */
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            opacity: 0;
+            animation: animateText 2s forwards, stableText 1s 2s forwards;
+        }
+
+        /* Animation for the title */
+        @keyframes animateText {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Stable Text after animation */
+        @keyframes stableText {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+.img-nav-btn {
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+    font-size: 2rem;
+    color: #ffffff;
+    text-decoration: none;
+    z-index: 20;
+    transform: rotate(-90deg);
+    animation: shakeBtn 0.6s infinite;
+    transition: all 0.3s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent base */
+    padding: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    backdrop-filter: blur(6px); /* subtle blur effect */
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Circle pulse animation behind the button */
+.ripple-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    z-index: -1;
+}
+
+/* Hover: stylish zoom & vivid color */
+.img-nav-btn:hover {
+    animation: none;
+    transform: rotate(-90deg) scale(1.12);
+    background-color: rgba(255, 204, 0, 0.8); /* Unique golden background */
+    color: #000000; /* Make triangle dark for contrast */
+    border-color: #ffcc00;
+}
+
+/* Optional: ripple also shifts a bit on hover */
+.img-nav-btn:hover .ripple-circle {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Shake animation */
+@keyframes shakeBtn {
+    0% { transform: rotate(-90deg) translate(1px, 1px); }
+    25% { transform: rotate(-90deg) translate(-2px, 0px); }
+    50% { transform: rotate(-90deg) translate(2px, 1px); }
+    75% { transform: rotate(-90deg) translate(-1px, -1px); }
+    100% { transform: rotate(-90deg) translate(1px, -2px); }
+}
+
+/* Circle pulse animation */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.4); opacity: 0.2; }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+.heartbeat {
+    font-size: 1.25rem;
+    animation: heartbeat 2s infinite;
+    display: inline-block;
+    transform-origin: center;
+}
+
+/* Heartbeat keyframes */
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.1);
+    }
+    28% {
+        transform: scale(0.95);
+    }
+    42% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(1);
+    }
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.03); }
+    28% { transform: scale(0.97); }
+    42% { transform: scale(1.02); }
+    70% { transform: scale(1); }
+}
+
+
+
+
+    </style>
+</head>
+<body class="container mt-5">
+
+    <!-- Navbar -->
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded mb-4 px-3">
+            <a class="navbar-brand heartbeat" href="#">🧠 LD with Multi-Modal Fusion Framework</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{{ url_for('process_page') }}">Preprocessing Step</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('model') }}">Model Inference</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{{ url_for('final_model') }}">Evaluation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  href="{{ url_for('metrics_page') }}">Metrices</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Title Section (Animated and then stable heading) -->
+    <div class="container mb-4">
+        <h2 class="title text-center">
+            A Multi-Modal Data Fusion Framework for Enhanced Learning Disability Detection and Progression Tracking
+        </h2>
+    </div>
+
+    <!-- Carousel Section -->
+    <div id="carouselExampleCaptions" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='images/kids-5560586_640.jpg') }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Dysgraphia ✍️📝</h5>
+                    <p>Dysgraphia is a learning disability that affects writing skills, making it difficult for individuals to form letters, 
+                    spell words, or organize thoughts on paper. It can impact handwriting, spelling, and even typing tasks, often leading to 
+                    frustration and challenges in academic settings.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/istockphoto-685847658-612x612.jpg') }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Dyslexia 📚🔠</h5>
+                    <p>Dyslexia is a learning disorder that makes it difficult for individuals to read, spell, and decode words despite having 
+                    normal intelligence. It occurs due to differences in how the brain processes written and spoken language, often leading to 
+                    challenges in reading fluency and comprehension.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/ai-generated-8563260_640.jpg') }}" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Working Memory Deficits 🧠</h5>
+                    <p>Working Memory Deficits refer to difficulties in holding and manipulating information in the mind over short periods. 
+                    This can impact tasks like problem-solving, following multi-step instructions, and remembering details for a short time,
+                     making it harder to process and apply new information.</p>
+                </div>
+            </div>
+        </div>
+           <!-- Button inside the image -->
+            <a href="{{ url_for('process_page') }}" class="img-nav-btn " title="Go to Preprocess">
+                🔻
+                <span class="ripple-circle"></span>
+            </a>
+        </div>
+    <!-- Other HTML here -->
+
+    <!-- Include Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzS3lA4Dk+c5SoTLl6Gm9yT0x04ecZq4tXcQ+aN9m41J" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-q2gy2weA9rH9nZ+4eM9s+8bF0G4lJfbq9pPqjcF6L+gF4EkO6YXztF6f6rN+qv5v" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>
